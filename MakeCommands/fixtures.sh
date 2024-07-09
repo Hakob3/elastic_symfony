@@ -6,6 +6,4 @@ docker compose exec php php bin/console doctrine:schema:update --dump-sql --comp
 
 docker compose exec php php bin/console doctrine:schema:update --force --complete
 
-docker compose exec php php bin/console patch:execute
-
-docker compose exec php php bin/console dictionary:dump
+docker compose exec php php bin/console doctrine:fixtures:load --env=dev -n
