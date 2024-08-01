@@ -25,6 +25,10 @@ class Article
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ArticleCategory $articleCategory = null;
+
     /**
      * @return int|null
      */
@@ -67,6 +71,25 @@ class Article
     public function setContent(string $content): static
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @return ArticleCategory|null
+     */
+    public function getArticleCategory(): ?ArticleCategory
+    {
+        return $this->articleCategory;
+    }
+
+    /**
+     * @param ArticleCategory|null $articleCategory
+     * @return $this
+     */
+    public function setArticleCategory(?ArticleCategory $articleCategory): static
+    {
+        $this->articleCategory = $articleCategory;
 
         return $this;
     }

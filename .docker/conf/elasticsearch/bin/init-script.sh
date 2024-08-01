@@ -29,7 +29,7 @@ if [ ! -f "$FLAG_FILE" ]; then
     echo "Password set successfully. Creating flag file."
     touch "$FLAG_FILE"
   else
-    echo "Failed to set password. Response: HTTP_RESPONSE"
+    echo "Failed to set password. Response: $HTTP_RESPONSE"
   fi
 else
   echo "Password already set. Skipping the password setup command."
