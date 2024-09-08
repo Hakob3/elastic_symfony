@@ -2,9 +2,7 @@
 
 namespace App\Service\Elasticsearch;
 
-use App\Attributes\IndexingEntity;
 use App\ElasticsearchDTO\Transformer\AbstractDTOTransformer;
-use App\ElasticsearchDTO\Transformer\DTOTransformerInterface;
 use App\Service\ClassHelper;
 use Elastic\Elasticsearch\Client;
 use Elastic\Elasticsearch\Exception\AuthenticationException;
@@ -12,17 +10,13 @@ use Elastic\Elasticsearch\Exception\ClientResponseException;
 use Elastic\Elasticsearch\Exception\MissingParameterException;
 use Elastic\Elasticsearch\Exception\ServerResponseException;
 use Elastic\Elasticsearch\Response\Elasticsearch;
-use http\Exception\InvalidArgumentException;
+use InvalidArgumentException;
 use Http\Promise\Promise;
-use Symfony\Bundle\MakerBundle\Str;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 readonly class IndexingService
 {
@@ -52,7 +46,6 @@ readonly class IndexingService
      */
     public function createIndexByEntity(string $entityClass): Elasticsearch|Promise
     {
-//        dd($this->client);
         return $this->client->indices()->create(
             [
                 'index' => ClassHelper::getEntityIndexName($entityClass)
