@@ -7,7 +7,7 @@ use Symfony\Bundle\MakerBundle\Str;
 class ClassHelper
 {
     /**
-     * @param string|object $entityClass
+     * @param string|object $entity
      * @return string
      */
     public static function getEntityIndexName(string|object $entity): string

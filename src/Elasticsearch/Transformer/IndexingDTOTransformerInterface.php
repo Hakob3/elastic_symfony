@@ -1,8 +1,8 @@
 <?php
 
-namespace App\ElasticsearchDTO\Transformer;
+namespace App\Elasticsearch\Transformer;
 
-interface DTOTransformerInterface
+interface IndexingDTOTransformerInterface
 {
     /**
      * @param $object

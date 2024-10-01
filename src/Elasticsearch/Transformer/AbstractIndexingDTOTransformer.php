@@ -1,12 +1,12 @@
 <?php
 
-namespace App\ElasticsearchDTO\Transformer;
+namespace App\Elasticsearch\Transformer;
 
 use App\Attributes\IndexingEntity;
 use App\Service\ClassHelper;
 use ReflectionClass;
 
-abstract class AbstractDTOTransformer implements DTOTransformerInterface
+abstract class AbstractIndexingDTOTransformer implements IndexingDTOTransformerInterface
 {
     /**
      * @return string
@@ -14,9 +14,6 @@ abstract class AbstractDTOTransformer implements DTOTransformerInterface
     public static function getTransformerEntityClass(): string
     {
         $reflection = new ReflectionClass(static::class);
-//        dd(ClassHelper::getEntityIndexName(
-//            $reflection->getAttributes(IndexingEntity::class)[0]->getArguments()['entityClass']
-//        ));
 
         return ClassHelper::getEntityIndexName(
             $reflection->getAttributes(IndexingEntity::class)[0]->getArguments()['entityClass']

@@ -24,6 +24,7 @@ readonly class ClientBuilder
      */
     public function buildClient(): Client
     {
+//        dd($this->elasticsearchApiKey);
         return BaseClientBuilder::create()
             ->setHosts([$this->elasticsearchEndpoint])
             ->setApiKey($this->elasticsearchApiKey)

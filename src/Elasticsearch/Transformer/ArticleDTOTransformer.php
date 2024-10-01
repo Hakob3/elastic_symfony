@@ -1,15 +1,15 @@
 <?php
 
-namespace App\ElasticsearchDTO\Transformer;
+namespace App\Elasticsearch\Transformer;
 
 use App\Attributes\IndexingEntity;
-use App\ElasticsearchDTO\DTO\ArticleDTO;
+use App\Elasticsearch\DTO\ArticleDTO;
 use App\Entity\Article;
 
 #[IndexingEntity(
     entityClass: Article::class
 )]
-class ArticleDTOTransformer extends AbstractDTOTransformer
+class ArticleDTOTransformer extends AbstractIndexingDTOTransformer
 {
     /**
      * @param ArticleCategoryDTOTransformer $articleCategoryDTOTransformer
@@ -30,8 +30,9 @@ class ArticleDTOTransformer extends AbstractDTOTransformer
         $dto->id = $object->getId();
         $dto->title = $object->getTitle();
         $dto->content = $object->getContent();
-        $dto->articleCategory =
-            $this->articleCategoryDTOTransformer->transformFromObject($object->getArticleCategory());
+        $dto->articleCategory = $this->articleCategoryDTOTransformer->transformFromObject(
+            $object->getArticleCategory()
+        );
 
         return $dto;
     }

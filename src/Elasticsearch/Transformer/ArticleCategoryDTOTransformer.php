@@ -1,12 +1,12 @@
 <?php
 
-namespace App\ElasticsearchDTO\Transformer;
+namespace App\Elasticsearch\Transformer;
 
 use App\Attributes\IndexingEntity;
-use App\ElasticsearchDTO\DTO\ArticleCategoryDTO;
+use App\Elasticsearch\DTO\ArticleCategoryDTO;
 use App\Entity\ArticleCategory;
 
-class ArticleCategoryDTOTransformer extends AbstractDTOTransformer
+class ArticleCategoryDTOTransformer extends AbstractIndexingDTOTransformer
 {
 
     /**

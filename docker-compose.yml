@@ -14,7 +14,7 @@ services:
             - mysql
         networks:
             default:
-                ipv4_address: 10.0.0.5
+                ipv4_address: 10.5.0.5
     php:
         build: .docker
         restart: always
@@ -26,7 +26,7 @@ services:
             - "host.docker.internal:host-gateway"
         networks:
             default:
-                ipv4_address: 10.0.0.6
+                ipv4_address: 10.5.0.6
     mysql:
         image: mariadb:10.6
         ports:
@@ -43,7 +43,7 @@ services:
         restart: always
         networks:
             default:
-                ipv4_address: 10.0.0.9
+                ipv4_address: 10.5.0.9
 
     phpmyadmin:
         image: phpmyadmin
@@ -54,7 +54,7 @@ services:
             PMA_HOST: mysql
         networks:
             default:
-                ipv4_address: 10.0.0.10
+                ipv4_address: 10.5.0.10
 
     elasticsearch:
         image: elasticsearch:8.14.1
@@ -73,7 +73,7 @@ services:
         entrypoint: ["/bin/bash", "/usr/local/bin/init-script.sh"]
         networks:
             default:
-                ipv4_address: 10.0.0.2
+                ipv4_address: 10.5.0.2
 
     kibana:
         image: kibana:8.14.1
@@ -91,7 +91,7 @@ services:
             - "xpack.license.self_generated.type=trial"
         networks:
             default:
-                ipv4_address: 10.0.0.3
+                ipv4_address: 10.5.0.3
 
     logstash:
         image: logstash:8.14.1
@@ -103,7 +103,7 @@ services:
 #            - .docker/conf/logstash/pipeline/:/usr/share/logstash/pipeline/
         networks:
             default:
-                ipv4_address: 10.0.0.4
+                ipv4_address: 10.5.0.4
 
 networks:
     default:
