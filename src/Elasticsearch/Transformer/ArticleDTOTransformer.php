@@ -7,7 +7,8 @@ use App\Elasticsearch\DTO\ArticleDTO;
 use App\Entity\Article;
 
 #[IndexingEntity(
-    entityClass: Article::class
+    entityClass: Article::class,
+    dto: ArticleDTO::class
 )]
 class ArticleDTOTransformer extends AbstractIndexingDTOTransformer
 {

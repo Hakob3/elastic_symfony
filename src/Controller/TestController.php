@@ -23,8 +23,8 @@ class TestController extends AbstractController
     ): Response
     {
 //        $indexingService->deleteIndex(Article::class);
-//        $indexingService->createIndex(Article::class);
-        dd($indexingService->searchDocument('sleep', Article::class));
+        $indexingService->createIndex(Article::class);
+//        dd($indexingService->searchDocument('sleep', Article::class));
 //        foreach ($articleRepository->findAll() as $article){
 //            VarDumper::dump($indexingService->indexingEntity($article)->asArray());
 //            VarDumper::dump($indexingService->getDocument($article));

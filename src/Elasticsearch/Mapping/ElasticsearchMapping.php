@@ -2,7 +2,6 @@
 
 namespace App\Elasticsearch\Mapping;
 
-use App\Elasticsearch\Analyzer\Analyzer;
 use Attribute;
 
 #[Attribute]
@@ -24,13 +23,24 @@ class ElasticsearchMapping
     public const TYPE_OBJECT = 'object';
     public const TYPE_NESTED = 'nested';
 
-    /**
-     * @param string $type
-     * @param Analyzer|null $analyzer
-     */
     public function __construct(
-        public string $type,
-        public ?Analyzer $analyzer = null
-    ) {
+        private readonly string $type,
+        private readonly ?Analyzer $analyzer = null,
+        private readonly array $fields = []
+    ) {}
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getAnalyzer(): ?Analyzer
+    {
+        return $this->analyzer;
+    }
+
+    public function getFields(): array
+    {
+        return $this->fields;
     }
 }

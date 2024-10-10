@@ -3,7 +3,7 @@
 namespace App\Service\Elasticsearch;
 
 use App\Attributes\IndexingEntity;
-use App\ElasticsearchDTO\Transformer\AbstractIndexingDTOTransformer;
+use App\Elasticsearch\Transformer\AbstractIndexingDTOTransformer;
 use App\Service\ClassHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use Elastic\Elasticsearch\Client;
@@ -22,7 +22,6 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Config\ApiPlatform\ElasticsearchConfig;
 
 readonly class ElasticsearchService
 {
@@ -51,9 +50,13 @@ readonly class ElasticsearchService
      * @throws ClientResponseException
      * @throws MissingParameterException
      * @throws ServerResponseException
+     * @throws ReflectionException
      */
     public function createIndex(string $entityClass): Elasticsearch|Promise
     {
+        $mapping = ElasticsearchMappingGenerator::generateMapping(
+            $this->getEntityTransformer($entityClass)::getTransformerDTOClass()
+        );
         return $this->client->indices()->create(
             [
                 'index' => ClassHelper::getEntityIndexName($entityClass)
@@ -189,10 +192,10 @@ readonly class ElasticsearchService
     }
 
     /**
-     * @param object $entity
+     * @param object|string $entity
      * @return AbstractIndexingDTOTransformer
      */
-    private function getEntityTransformer(object $entity): AbstractIndexingDTOTransformer
+    private function getEntityTransformer(object|string $entity): AbstractIndexingDTOTransformer
     {
         $this->checkEntityConfiguredIndexing($entity);
 
@@ -220,10 +223,10 @@ readonly class ElasticsearchService
     }
 
     /**
-     * @param object $entity
+     * @param object|string $entity
      * @return void
      */
-    public function checkEntityConfiguredIndexing(object $entity): void
+    public function checkEntityConfiguredIndexing(object|string $entity): void
     {
         $entityClass = ClassHelper::getEntityIndexName($entity);
         if (!$this->transformersLocator->has($entityClass)) {

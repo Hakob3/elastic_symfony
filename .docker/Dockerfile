@@ -51,7 +51,7 @@ RUN echo "xdebug.client_port = 9001" >> /usr/local/etc/php/conf.d/docker-php-ext
 RUN echo "xdebug.log = /var/www/var/log/xdebug.log" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.force_display_errors=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 RUN echo "xdebug.force_error_reporting=1" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo "xdebug.idekey = PHPSTORM" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+RUN echo "xdebug.idekey = PHPSTORM_ELASTIC" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 

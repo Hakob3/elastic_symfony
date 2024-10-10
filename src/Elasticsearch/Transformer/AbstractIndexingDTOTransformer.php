@@ -20,6 +20,16 @@ abstract class AbstractIndexingDTOTransformer implements IndexingDTOTransformerI
         );
     }
 
+    /**
+     * @return string
+     */
+    public static function getTransformerDTOClass(): string
+    {
+        $reflection = new ReflectionClass(static::class);
+
+        return $reflection->getAttributes(IndexingEntity::class)[0]->getArguments()['dto'];
+    }
+
     public function transformFromObjects(iterable $objects): iterable
     {
         $data = [];

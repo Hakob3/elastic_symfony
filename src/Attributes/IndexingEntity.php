@@ -9,8 +9,9 @@ readonly class IndexingEntity
 {
     /**
      * @param string $entityClass
+     * @param string $dto
      */
-    public function __construct(private string $entityClass)
+    public function __construct(private string $entityClass, private string $dto)
     {
     }
 
@@ -20,5 +21,13 @@ readonly class IndexingEntity
     public function getEntityClass(): string
     {
         return $this->entityClass;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDto(): string
+    {
+        return $this->dto;
     }
 }

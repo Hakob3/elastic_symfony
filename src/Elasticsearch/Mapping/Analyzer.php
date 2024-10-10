@@ -4,27 +4,37 @@ namespace App\Elasticsearch\Mapping;
 
 class Analyzer
 {
-    public const TYPE_STANDARD = 'standard';
     public const TYPE_CUSTOM = 'custom';
-    public const TYPE_WHITESPACE = 'whitespace';
-    public const TYPE_KEYWORD = 'keyword';
+    public const TYPE_STANDARD = 'standard';
     public const TYPE_SIMPLE = 'simple';
+    public const TYPE_WHITESPACE = 'whitespace';
     public const TYPE_STOP = 'stop';
     public const TYPE_PATTERN = 'pattern';
+    public const TYPE_KEYWORD = 'keyword';
     public const TYPE_LANGUAGE = 'language';
     public const TYPE_FINGERPRINT = 'fingerprint';
 
+    private string $name;
     private string $type;
-    private array $settings;
+    private Tokenizer $tokenizer;
+    private array $filters;
 
-    public function __construct(string $type, array $settings = [])
+    public function __construct(string $name, string $type, Tokenizer $tokenizer, array $filters = [])
     {
+        $this->name = $name;
         $this->type = $type;
-        $this->settings = $settings;
+        $this->tokenizer = $tokenizer;
+        $this->filters = $filters;
     }
 
-    public function toArray(): array
+    public function getConfiguration(): array
     {
-        return array_merge(['type' => $this->type], $this->settings);
+        return [
+            $this->name => [
+                'type' => $this->type,
+                'tokenizer' => $this->tokenizer->getConfiguration(),
+                'filter' => $this->filters
+            ]
+        ];
     }
 }
