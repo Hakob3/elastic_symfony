@@ -15,6 +15,10 @@ class TestController extends AbstractController
      * @param ElasticsearchService $indexingService
      * @param ArticleRepository $articleRepository
      * @return Response
+     * @throws \Elastic\Elasticsearch\Exception\ClientResponseException
+     * @throws \Elastic\Elasticsearch\Exception\MissingParameterException
+     * @throws \Elastic\Elasticsearch\Exception\ServerResponseException
+     * @throws \ReflectionException
      */
     #[Route('/test', name: 'app_test')]
     public function index(

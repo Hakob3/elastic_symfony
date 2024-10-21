@@ -3,6 +3,7 @@
 namespace App\Service\Elasticsearch;
 
 use App\Elasticsearch\Mapping\ElasticsearchMapping;
+use App\Elasticsearch\Mapping\IndexSettings;
 use ReflectionClass;
 use ReflectionException;
 
@@ -15,6 +16,9 @@ class ElasticsearchMappingGenerator
     {
         $reflectionClass = new ReflectionClass($dto);
         $properties = $reflectionClass->getProperties();
+
+        /** @var IndexSettings|null $settings */
+        $settings = $reflectionClass->getAttributes(name: IndexSettings::class);
 
         $mapping = [];
 

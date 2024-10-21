@@ -69,8 +69,8 @@ services:
             - KIBANA_PASSWORD=$KIBANA_PASSWORD
             - "discovery.type=single-node"
             - "xpack.security.http.ssl.enabled=false"
-            - "xpack.license.self_generated.type=trial"
-        entrypoint: ["/bin/bash", "/usr/local/bin/init-script.sh"]
+            - "xpack.security.enabled=false"
+#        entrypoint: ["/bin/bash", "/usr/local/bin/init-script.sh"]
         networks:
             default:
                 ipv4_address: 10.5.0.2
@@ -88,7 +88,6 @@ services:
             - ELASTICSEARCH_USERNAME=kibana_system
             - ELASTICSEARCH_PASSWORD=$KIBANA_PASSWORD
             - "xpack.security.enabled=false"
-            - "xpack.license.self_generated.type=trial"
         networks:
             default:
                 ipv4_address: 10.5.0.3

@@ -4,7 +4,7 @@ namespace App\Elasticsearch\Mapping;
 
 use Attribute;
 
-#[Attribute]
+#[Attribute(Attribute::TARGET_PROPERTY)]
 class ElasticsearchMapping
 {
     public const TYPE_TEXT = 'text';
@@ -23,24 +23,48 @@ class ElasticsearchMapping
     public const TYPE_OBJECT = 'object';
     public const TYPE_NESTED = 'nested';
 
+    /**
+     * @param string $type
+     * @param string|null $analyzer
+     * @param array $properties
+     * @param array $settings
+     */
     public function __construct(
         private readonly string $type,
-        private readonly ?Analyzer $analyzer = null,
-        private readonly array $fields = []
+        private readonly ?string $analyzer = null,
+        private readonly array $properties = [],
+        private readonly array $settings = []
     ) {}
 
+    /**
+     * @return string
+     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    public function getAnalyzer(): ?Analyzer
+    /**
+     * @return string|null
+     */
+    public function getAnalyzer(): ?string
     {
         return $this->analyzer;
     }
 
-    public function getFields(): array
+    /**
+     * @return array
+     */
+    public function getProperties(): array
     {
-        return $this->fields;
+        return $this->properties;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSettings(): array
+    {
+        return $this->settings;
     }
 }
