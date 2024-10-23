@@ -1,8 +1,11 @@
 <?php
 
-namespace App\Elasticsearch\Mapping;
+namespace App\Elasticsearch\Index\Analysis;
 
-class CharFilter
+use JsonSerializable;
+use Serializable;
+
+class CharFilter implements AnalysisInterface, JsonSerializable
 {
     public const TYPE_HTML_STRIP = 'html_strip';
     public const TYPE_MAPPING = 'mapping';
@@ -39,7 +42,7 @@ class CharFilter
     /**
      * @return array
      */
-    public function getConfiguration(): array
+    public function jsonSerialize(): array
     {
         return [
             $this->name => array_merge([

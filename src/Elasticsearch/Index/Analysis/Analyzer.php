@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Elasticsearch\Mapping;
+namespace App\Elasticsearch\Index\Analysis;
 
-class Analyzer
+use JsonSerializable;
+
+class Analyzer implements AnalysisInterface, JsonSerializable
 {
     public const TYPE_CUSTOM = 'custom';
     public const TYPE_STANDARD = 'standard';
@@ -83,19 +85,17 @@ class Analyzer
     /**
      * @return array|null
      */
-    public function getConfiguration(): ?array
+    public function jsonSerialize(): ?array
     {
         if ($this->name === null) {
             return null;
         }
 
-        return [
-            $this->name => array_merge([
-                'type' => $this->type,
-                'tokenizer' => $this->tokenizer,
-                'filter' => $this->filter,
-                'char_filter' => $this->charFilter
-            ], $this->settings)
-        ];
+        return array_merge([
+            'type' => $this->type,
+            'tokenizer' => $this->tokenizer,
+            'filter' => $this->filter,
+            'char_filter' => $this->charFilter
+        ], $this->settings);
     }
 }

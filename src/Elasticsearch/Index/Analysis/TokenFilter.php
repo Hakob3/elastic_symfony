@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Elasticsearch\Mapping;
+namespace App\Elasticsearch\Index\Analysis;
 
-class TokenFilter
+use JsonSerializable;
+
+class TokenFilter implements AnalysisInterface, JsonSerializable
 {
     public const TYPE_APOSTROPHE = 'apostrophe';
     public const TYPE_ASCIIFOLDING = 'asciifolding';
@@ -84,7 +86,7 @@ class TokenFilter
     /**
      * @return array|null
      */
-    public function getConfiguration(): ?array
+    public function jsonSerialize(): ?array
     {
         if ($this->name === null) {
             return null;

@@ -2,12 +2,12 @@
 
 namespace App\Elasticsearch\DTO;
 
-use App\Elasticsearch\Mapping\Analyzer;
-use App\Elasticsearch\Mapping\CharFilter;
-use App\Elasticsearch\Mapping\ElasticsearchMapping;
-use App\Elasticsearch\Mapping\IndexSettings;
-use App\Elasticsearch\Mapping\TokenFilter;
-use App\Elasticsearch\Mapping\Tokenizer;
+use App\Elasticsearch\Index\Analysis\Analyzer;
+use App\Elasticsearch\Index\Analysis\CharFilter;
+use App\Elasticsearch\Index\Analysis\TokenFilter;
+use App\Elasticsearch\Index\Analysis\Tokenizer;
+use App\Elasticsearch\Index\ElasticsearchMapping;
+use App\Elasticsearch\Index\IndexSettings;
 use JMS\Serializer\Annotation\Type;
 
 #[IndexSettings(
@@ -15,6 +15,7 @@ use JMS\Serializer\Annotation\Type;
         new Analyzer(
             type: Analyzer::TYPE_CUSTOM,
             name: 'my_analyzer',
+            tokenizer: Tokenizer::TYPE_WHITESPACE,
             filter: [
                 TokenFilter::TYPE_LOWERCASE
             ],
@@ -36,6 +37,8 @@ use JMS\Serializer\Annotation\Type;
 )]
 class ArticleDTO
 {
+    private const CUSTOM_ANALYZER = "custom_analyzer";
+
     #[Type("integer")]
     public ?int $id = null;
 

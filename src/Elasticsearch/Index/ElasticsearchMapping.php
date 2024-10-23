@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Elasticsearch\Mapping;
+namespace App\Elasticsearch\Index;
 
 use Attribute;
 

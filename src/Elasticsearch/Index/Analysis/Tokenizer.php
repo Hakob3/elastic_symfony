@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Elasticsearch\Mapping;
+namespace App\Elasticsearch\Index\Analysis;
 
-class Tokenizer
+use JsonSerializable;
+
+class Tokenizer implements AnalysisInterface, JsonSerializable
 {
     public const TYPE_STANDARD = 'standard';
     public const TYPE_SIMPLE = 'simple';
@@ -47,7 +49,7 @@ class Tokenizer
     /**
      * @return array|null
      */
-    public function getConfiguration(): ?array
+    public function jsonSerialize(): ?array
     {
         if ($this->name === null) {
             return null;

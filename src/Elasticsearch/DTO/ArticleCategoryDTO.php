@@ -2,7 +2,7 @@
 
 namespace App\Elasticsearch\DTO;
 
-use App\Elasticsearch\Mapping\ElasticsearchMapping;
+use App\Elasticsearch\Index\ElasticsearchMapping;
 use JMS\Serializer\Annotation\Type;
 
 class ArticleCategoryDTO

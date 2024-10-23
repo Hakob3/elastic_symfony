@@ -2,13 +2,23 @@
 
 namespace App\Service\Elasticsearch;
 
-use App\Elasticsearch\Mapping\ElasticsearchMapping;
-use App\Elasticsearch\Mapping\IndexSettings;
+use App\Elasticsearch\Index\Analysis\Analyzer;
+use App\Elasticsearch\Index\Analysis\CharFilter;
+use App\Elasticsearch\Index\Analysis\TokenFilter;
+use App\Elasticsearch\Index\Analysis\Tokenizer;
+use App\Elasticsearch\Index\ElasticsearchMapping;
+use App\Elasticsearch\Index\IndexSettings;
 use ReflectionClass;
 use ReflectionException;
+use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 class ElasticsearchMappingGenerator
 {
+    public function __construct(private readonly ObjectNormalizer $normalizer)
+    {
+    }
+
     /**
      * @throws ReflectionException
      */
@@ -16,11 +26,10 @@ class ElasticsearchMappingGenerator
     {
         $reflectionClass = new ReflectionClass($dto);
         $properties = $reflectionClass->getProperties();
-
-        /** @var IndexSettings|null $settings */
-        $settings = $reflectionClass->getAttributes(name: IndexSettings::class);
-
+        $settingsAttribute = $reflectionClass->getAttributes(name: IndexSettings::class)[0]->getArguments();
+        $normalize = new ObjectNormalizer(nameConverter: new CamelCaseToSnakeCaseNameConverter());
         $mapping = [];
+        $json = json_encode($settingsAttribute);
 
         foreach ($properties as $property) {
             $attributes = $property->getAttributes(ElasticsearchMapping::class);
