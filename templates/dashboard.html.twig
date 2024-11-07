@@ -1,0 +1,32 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <h1>Article Management Dashboard</h1>
+        <p>Welcome to the admin panel! Here you can manage articles and categories for your project. Below is an overview of the main features:</p>
+
+        <section class="dashboard-section">
+            <h2>Admin Panel Features</h2>
+            <ul>
+                <li><strong>Manage Articles:</strong> Create, edit, delete, and search for articles.</li>
+                <li><strong>Manage Categories:</strong> Create and edit categories for articles.</li>
+                <li><strong>Article Search:</strong> Perform article search through Elasticsearch API.</li>
+            </ul>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>How to Use the Panel</h2>
+            <p>Use the navigation menu on the left to access:</p>
+            <ul>
+                <li><strong>Articles:</strong> Go to article management, where you can create, edit, delete, or search for articles by keywords.</li>
+                <li><strong>Categories:</strong> Go to article category management. Here you can add new categories or edit existing ones.</li>
+            </ul>
+            <p>Each operation is done in a user-friendly interface, without the need to manually interact with the database or Elasticsearch.</p>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Project Information</h2>
+            <p>This project is built using Symfony and EasyAdmin for the admin panel, as well as Elasticsearch for article search. It serves as a portfolio example, demonstrating skills in configuring, developing, and using these tools.</p>
+        </section>
+    </div>
+{% endblock %}

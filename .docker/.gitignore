@@ -1,0 +1,4 @@
+conf/mysql/db-data/
+conf/elasticsearch/data/
+conf/kibana/data/
+log/
