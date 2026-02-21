@@ -57,19 +57,21 @@ services:
                 ipv4_address: 10.5.0.10
 
     elasticsearch:
-        image: elasticsearch:8.14.1
+        image: elasticsearch:9.3.0
         restart: always
         ports:
             - 9200:9200
-        volumes:
-            - .docker/conf/elasticsearch/bin/init-script.sh:/usr/local/bin/init-script.sh
-            - .docker/conf/elasticsearch/data/:/usr/share/elasticsearch/data/
+#        volumes:
+#            - .docker/conf/elasticsearch/bin/init-script.sh:/usr/local/bin/init-script.sh
+#            - .docker/conf/elasticsearch/data/:/usr/share/elasticsearch/data/
         environment:
-            - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
-            - KIBANA_PASSWORD=$KIBANA_PASSWORD
+#            - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+#            - KIBANA_PASSWORD=$KIBANA_PASSWORD
             - "discovery.type=single-node"
             - "xpack.security.http.ssl.enabled=false"
             - "xpack.security.enabled=false"
+            - +ES_JAVA_OPTS=-Xms512m -Xmx512m"
+        mem_limit: 1g
 #        entrypoint: ["/bin/bash", "/usr/local/bin/init-script.sh"]
         networks:
             default:
@@ -85,8 +87,8 @@ services:
         environment:
             - ELASTICSEARCH_URL=http://elasticsearch:9200
             - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-            - ELASTICSEARCH_USERNAME=kibana_system
-            - ELASTICSEARCH_PASSWORD=$KIBANA_PASSWORD
+#            - ELASTICSEARCH_USERNAME=kibana_system
+#            - ELASTICSEARCH_PASSWORD=$KIBANA_PASSWORD
             - "xpack.security.enabled=false"
         networks:
             default:
